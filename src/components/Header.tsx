@@ -45,16 +45,10 @@ const Header = () => {
             About
           </a>
           <a 
-            href="#features" 
+            href="#resources" 
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
-            Features
-          </a>
-          <a 
-            href="#events" 
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Events
+            Resources
           </a>
           <a 
             href="#contact" 
