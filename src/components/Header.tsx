@@ -36,7 +36,7 @@ const Header = () => {
           <div className="w-10 h-10 rounded-lg bg-homer flex items-center justify-center">
             <span className="text-white font-bold">H</span>
           </div>
-          <span>Homer AI User Group</span>
+          <span>HUG</span>
         </a>
         
         <nav className="hidden md:flex items-center gap-8">
