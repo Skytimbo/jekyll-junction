@@ -1,10 +1,21 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import AnimatedWrapper from './AnimatedWrapper';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { UserPlus } from 'lucide-react';
+import { toast } from '@/hooks/use-toast';
 
 const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
+  const [isJoinOpen, setIsJoinOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    interests: ''
+  });
   
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -36,6 +47,38 @@ const Hero = () => {
       document.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validate form
+    if (!formData.name || !formData.email) {
+      toast({
+        title: "Missing Information",
+        description: "Please provide your name and email address.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    // Here you would typically send the data to your backend
+    console.log("Form submitted:", formData);
+    
+    // Success toast
+    toast({
+      title: "Welcome to the Community!",
+      description: "Thank you for joining the Homer AI User Group. We'll be in touch soon!",
+    });
+    
+    // Close the modal and reset form
+    setIsJoinOpen(false);
+    setFormData({ name: '', email: '', interests: '' });
+  };
 
   return (
     <div 
@@ -77,8 +120,10 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
-                className="bg-homer hover:bg-homer-dark transition-colors"
+                className="bg-homer hover:bg-homer-dark transition-colors flex items-center gap-2"
+                onClick={() => setIsJoinOpen(true)}
               >
+                <UserPlus size={18} />
                 Join Our Community
               </Button>
               <Button 
@@ -112,6 +157,60 @@ const Hero = () => {
           </AnimatedWrapper>
         </div>
       </div>
+      
+      {/* Join Community Sheet/Modal */}
+      <Sheet open={isJoinOpen} onOpenChange={setIsJoinOpen}>
+        <SheetContent className="sm:max-w-md">
+          <SheetHeader>
+            <SheetTitle>Join the Homer AI User Group</SheetTitle>
+            <SheetDescription>
+              Fill out this form to join our community of AI enthusiasts in Homer, Alaska.
+            </SheetDescription>
+          </SheetHeader>
+          
+          <form onSubmit={handleSubmit} className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Name</Label>
+              <Input 
+                id="name" 
+                name="name" 
+                placeholder="John Doe" 
+                value={formData.name}
+                onChange={handleInputChange}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input 
+                id="email" 
+                name="email" 
+                type="email" 
+                placeholder="john@example.com" 
+                value={formData.email}
+                onChange={handleInputChange}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="interests">AI Interests (Optional)</Label>
+              <Input 
+                id="interests" 
+                name="interests" 
+                placeholder="LLMs, Computer Vision, etc." 
+                value={formData.interests}
+                onChange={handleInputChange}
+              />
+            </div>
+            
+            <div className="pt-4 flex justify-end">
+              <Button type="submit" className="bg-homer hover:bg-homer-dark">
+                Join Now
+              </Button>
+            </div>
+          </form>
+        </SheetContent>
+      </Sheet>
       
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce opacity-70">
