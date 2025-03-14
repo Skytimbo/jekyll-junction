@@ -68,12 +68,6 @@ const Header = () => {
           >
             Sign In
           </Button>
-          <Button 
-            size="sm"
-            className="bg-homer hover:bg-homer-dark transition-colors"
-          >
-            Join Group
-          </Button>
           
           {/* Mobile Menu */}
           <Sheet>
@@ -109,11 +103,6 @@ const Header = () => {
                   className="w-full justify-start"
                 >
                   Sign In
-                </Button>
-                <Button 
-                  className="w-full justify-start bg-homer hover:bg-homer-dark"
-                >
-                  Join Group
                 </Button>
               </nav>
             </SheetContent>
