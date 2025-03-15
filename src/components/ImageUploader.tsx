@@ -5,17 +5,26 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Upload, Move, ZoomIn, Trash } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface ImageUploaderProps {
-  onImageSave?: (imageData: { url: string; width: number; position: { x: number; y: number } }) => void;
+  onImageSave?: (imageData: { url: string; width: number; position: { x: number; y: number }; page: string }) => void;
 }
+
+const AVAILABLE_PAGES = [
+  { id: 'home', name: 'Home Page' },
+  { id: 'about', name: 'About Section' },
+  { id: 'resources', name: 'Resources Section' },
+  { id: 'contact', name: 'Contact Section' }
+];
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSave }) => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [imageWidth, setImageWidth] = useState(100); // percentage
   const [position, setPosition] = useState({ x: 50, y: 50 }); // percentage
+  const [selectedPage, setSelectedPage] = useState('home');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
@@ -77,10 +86,11 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSave }) => {
     onImageSave({
       url: imageUrl,
       width: imageWidth,
-      position
+      position,
+      page: selectedPage
     });
     
-    toast.success('Image settings saved');
+    toast.success(`Image saved to ${AVAILABLE_PAGES.find(p => p.id === selectedPage)?.name}`);
   };
 
   return (
@@ -104,6 +114,23 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSave }) => {
               onChange={handleFileChange}
               className="mt-1.5"
             />
+          </div>
+
+          {/* Page Selection */}
+          <div className="space-y-2">
+            <Label htmlFor="page-select">Select Page/Section</Label>
+            <Select value={selectedPage} onValueChange={setSelectedPage}>
+              <SelectTrigger id="page-select" className="w-full">
+                <SelectValue placeholder="Select a page" />
+              </SelectTrigger>
+              <SelectContent>
+                {AVAILABLE_PAGES.map(page => (
+                  <SelectItem key={page.id} value={page.id}>
+                    {page.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Image Preview */}
@@ -190,7 +217,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSave }) => {
           onClick={handleSave} 
           disabled={!imageUrl || !onImageSave}
         >
-          Save Image Settings
+          Save Image
         </Button>
       </CardFooter>
     </Card>

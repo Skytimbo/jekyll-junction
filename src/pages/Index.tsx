@@ -6,6 +6,7 @@ import About from '@/components/About';
 import Resources from '@/components/Resources';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import PageImage from '@/components/PageImage';
 
 const Index = () => {
   // Smooth scroll implementation
@@ -37,11 +38,28 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans antialiased overflow-x-hidden">
       <Header />
-      <main>
+      <main className="relative">
+        {/* Home page images */}
+        <div className="relative w-full">
+          <PageImage pageId="home" />
+        </div>
+        
         <Hero />
-        <About />
-        <Resources />
-        <Contact />
+        
+        <div id="about" className="relative w-full">
+          <PageImage pageId="about" />
+          <About />
+        </div>
+        
+        <div id="resources" className="relative w-full">
+          <PageImage pageId="resources" />
+          <Resources />
+        </div>
+        
+        <div id="contact" className="relative w-full">
+          <PageImage pageId="contact" />
+          <Contact />
+        </div>
       </main>
       <Footer />
     </div>
