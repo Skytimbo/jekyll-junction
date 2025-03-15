@@ -10,11 +10,8 @@ const AdminHeader = () => {
   return (
     <header className="w-full bg-white border-b shadow-sm">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2 text-xl font-semibold text-foreground">
-          <div className="w-10 h-10 rounded-lg bg-homer flex items-center justify-center">
-            <span className="text-white font-bold">H</span>
-          </div>
-          <span>HUG Admin</span>
+        <div className="text-xl font-semibold text-homer">
+          HUG Admin
         </div>
 
         <div className="flex items-center gap-2">

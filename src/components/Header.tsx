@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -31,12 +30,9 @@ const Header = () => {
       <div className="container mx-auto px-4 flex items-center justify-between">
         <a 
           href="/" 
-          className="flex items-center gap-2 text-xl font-semibold text-foreground"
+          className="text-xl font-semibold text-homer"
         >
-          <div className="w-10 h-10 rounded-lg bg-homer flex items-center justify-center">
-            <span className="text-white font-bold">H</span>
-          </div>
-          <span>HUG</span>
+          HUG
         </a>
         
         <nav className="hidden md:flex items-center gap-8">
@@ -77,7 +73,6 @@ const Header = () => {
             <span>Admin</span>
           </Button>
           
-          {/* Mobile Menu */}
           <Sheet>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon">
