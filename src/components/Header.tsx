@@ -1,8 +1,9 @@
+
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Shield } from 'lucide-react';
+import { Menu, Shield, Image } from 'lucide-react';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -67,6 +68,16 @@ const Header = () => {
             variant="ghost"
             size="sm"
             className="hidden md:inline-flex gap-1"
+            onClick={() => window.location.href = '/image-editor'}
+          >
+            <Image className="h-4 w-4" />
+            <span>Images</span>
+          </Button>
+          
+          <Button
+            variant="ghost"
+            size="sm"
+            className="hidden md:inline-flex gap-1"
             onClick={() => window.location.href = '/admin'}
           >
             <Shield className="h-4 w-4" />
@@ -107,6 +118,13 @@ const Header = () => {
                   Contact
                 </a>
                 <div className="border-t my-4"></div>
+                <a 
+                  href="/image-editor" 
+                  className="text-base font-medium text-foreground px-2 py-2 rounded-md hover:bg-muted transition-colors flex items-center gap-2"
+                >
+                  <Image className="h-4 w-4" />
+                  <span>Images</span>
+                </a>
                 <a 
                   href="/admin" 
                   className="text-base font-medium text-foreground px-2 py-2 rounded-md hover:bg-muted transition-colors flex items-center gap-2"
