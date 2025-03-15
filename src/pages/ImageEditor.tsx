@@ -5,8 +5,9 @@ import { toast } from 'sonner';
 import { saveImage, getSavedImages, deleteImage } from '@/utils/imageStorage';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Trash, Image } from 'lucide-react';
+import { Trash, Image, ArrowLeft } from 'lucide-react';
 import Header from '@/components/Header';
+import { Link } from 'react-router-dom';
 
 const ImageEditor = () => {
   const [savedImages, setSavedImages] = useState<ReturnType<typeof getSavedImages>>([]);
@@ -41,6 +42,15 @@ const ImageEditor = () => {
     <div className="min-h-screen bg-slate-50">
       <Header />
       <div className="container mx-auto px-4 py-12 pt-24">
+        <div className="mb-6">
+          <Link to="/">
+            <Button variant="outline" className="flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Back to Home
+            </Button>
+          </Link>
+        </div>
+        
         <h1 className="text-3xl font-bold mb-8 text-center">Image Manager</h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
