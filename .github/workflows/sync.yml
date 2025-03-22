@@ -1,0 +1,27 @@
+name: Sync Repository
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Add additional steps here, such as running tests or deploying
+
+      - name: Commit and push changes if there are any
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated sync"
+            git push origin main
+          else
+            echo "No changes to commit"
